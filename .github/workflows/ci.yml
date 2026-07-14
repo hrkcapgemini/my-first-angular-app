@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,22 +38,24 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: AI review trigger
+      - name: AI SonarQube agent
         id: ai-review
         if: github.event_name == 'push'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "AI review step placeholder"
-          echo "Connect this step to your AI agent or OpenAI-compatible endpoint"
-          echo "changed=false" >> "$GITHUB_OUTPUT"
+          node ./scripts/ai-sonarqube-agent.js
 
       - name: Create Pull Request
         if: github.event_name == 'push' && steps.ai-review.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: AI suggested fixes"
+          branch: ${{ steps.ai-review.outputs.branch }}
+          base: main
+          commit-message: "chore: AI-generated SonarQube fixes"
           title: "AI-generated fixes from SonarQube"
           body: "Automated PR created by GitHub Actions after SonarQube analysis."
