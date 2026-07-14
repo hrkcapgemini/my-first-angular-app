@@ -1,0 +1,63 @@
+.auth-card {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  background: #fff;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background: #0f766e;
+  color: #fff;
+  cursor: pointer;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.9rem;
+}
+
+.success {
+  color: #15803d;
+  font-size: 0.95rem;
+}
+
+.switch-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

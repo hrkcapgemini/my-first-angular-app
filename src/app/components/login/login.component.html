@@ -1,0 +1,19 @@
+<div class="auth-card">
+  <h2>Login</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label for="email">Email ID</label>
+    <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
+    <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">Email is required.</div>
+    <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">Please enter a valid email.</div>
+
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+    <div class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">Password is required.</div>
+
+    <button type="submit">Login</button>
+
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </form>
+
+  <p class="switch-link">New here? <a routerLink="/signup">Create an account</a></p>
+</div>
