@@ -36,16 +36,24 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: AI review trigger
+      - name: AI review and auto-fix
         id: ai-review
         if: github.event_name == 'push'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
         run: |
-          echo "AI review step placeholder"
-          echo "Connect this step to your AI agent or OpenAI-compatible endpoint"
-          echo "changed=false" >> "$GITHUB_OUTPUT"
+          npm run ai:fix
+          # Write output for subsequent steps (create-pull-request)
+          if [ -f .ai-fixer-result ]; then
+            changed=$(cat .ai-fixer-result)
+          else
+            changed=false
+          fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
         if: github.event_name == 'push' && steps.ai-review.outputs.changed == 'true'
