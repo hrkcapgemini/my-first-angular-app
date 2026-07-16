@@ -30,6 +30,16 @@ jobs:
       - name: Build Angular app
         run: npm run build
 
+      - name: Validate SonarQube secrets
+        run: |
+          if [ -z "${SONAR_TOKEN}" ] || [ -z "${SONAR_HOST_URL}" ]; then
+            echo "Missing SONAR_TOKEN or SONAR_HOST_URL. Set these as repository secrets."
+            exit 1
+          fi
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@2f77a1ec69fb1d595b06f35ab27e97605bdef703
         env:
