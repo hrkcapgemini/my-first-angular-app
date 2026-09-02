@@ -1,23 +1,67 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { TodoService, type Todo } from '../../services/todo.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
+  private readonly todoService = inject(TodoService);
 
   user = this.authService.getCurrentUser();
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  readonly todos = signal<Todo[]>([]);
+  readonly isLoading = signal(false);
+  readonly error = signal<string | null>(null);
+
+  readonly totalTodos = computed(() => this.todos().length);
+  readonly completedTodos = computed(() => this.todos().filter((todo) => todo.completed).length);
+  readonly pendingTodos = computed(() => this.todos().filter((todo) => !todo.completed).length);
+
+  constructor() {
+    /*effect start *
+    effect(() => {
+      const data = this.todos();
+      const loading = this.isLoading();
+      const errorMessage = this.error();
+
+      if (!loading && data.length > 0) {
+        console.log('Dashboard summary:', {
+          total: this.totalTodos(),
+          completed: this.completedTodos(),
+          pending: this.pendingTodos(),
+        });
+      }
+
+      if (errorMessage) {
+        console.error('Dashboard error:', errorMessage);
+      }
+    });
+  / * Effect ends */
+  
+    this.loadTodos();
+  }
+
+  loadTodos(): void {
+    this.isLoading.set(true);
+    this.error.set(null);
+
+    this.todoService.getTodos().subscribe({
+      next: (response) => {
+        this.todos.set(response);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.error.set('Unable to load dashboard data.');
+        this.isLoading.set(false);
+      },
+    });
   }
 }

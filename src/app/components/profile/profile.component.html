@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<main class="page-shell">
+  <section class="content-card">
+    <p class="eyebrow">Profile</p>
+    <h1>{{ user?.firstName || 'User' }} {{ user?.lastName || '' }}</h1>
+
+    <div class="profile-grid">
+      <div>
+        <span class="field-label">Email</span>
+        <p>{{ user?.email || 'Not available' }}</p>
+      </div>
+      <div>
+        <span class="field-label">Phone</span>
+        <p>{{ user?.phone || 'Not available' }}</p>
+      </div>
+      <div>
+        <span class="field-label">City</span>
+        <p>{{ user?.city || 'Not available' }}</p>
+      </div>
+      <div>
+        <span class="field-label">Country</span>
+        <p>{{ user?.nationality || 'Not available' }}</p>
+      </div>
+    </div>
+  </section>
+</main>

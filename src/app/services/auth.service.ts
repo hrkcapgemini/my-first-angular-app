@@ -56,7 +56,7 @@ export class AuthService {
     const normalizedEmail = email.trim().toLowerCase();
     const user = users.find((existingUser) => existingUser.email.toLowerCase() === normalizedEmail);
 
-    if (!user || user.password !== password) {
+    if (user?.password !== password) {
       return {
         success: false,
         message: 'Invalid email or password.',

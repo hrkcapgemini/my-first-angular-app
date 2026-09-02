@@ -1,5 +1,42 @@
-<div class="dashboard-card">
-  <h2>Welcome, {{ user?.firstName || 'User' }}!</h2>
-  <p>You have successfully logged in to your dashboard.</p>
-  <button (click)="logout()">Logout</button>
-</div>
+<app-header></app-header>
+
+<main class="page-shell">
+  <section class="dashboard-card">
+    <p class="eyebrow">Dashboard</p>
+    <h2>Welcome, {{ user?.firstName || 'User' }}!</h2>
+    <p>You have successfully logged in to your dashboard.</p>
+
+    <div class="stats-grid" aria-live="polite">
+      <article class="stat-box">
+        <span>Total</span>
+        <strong>{{ totalTodos() }}</strong>
+      </article>
+      <article class="stat-box">
+        <span>Completed</span>
+        <strong>{{ completedTodos() }}</strong>
+      </article>
+      <article class="stat-box">
+        <span>Pending</span>
+        <strong>{{ pendingTodos() }}</strong>
+      </article>
+    </div>
+
+    @if (isLoading()) {
+      <p class="status-text">Loading tasks...</p>
+    } @else if (error()) {
+      <p class="status-text error">{{ error() }}</p>
+    } @else {
+      <div class="todo-list">
+        @for (todo of todos(); track todo.id) {
+          <div class="todo-item" [class.completed]="todo.completed">
+            <div>
+              <p class="todo-title">{{ todo.title }}</p>
+              <small>User {{ todo.userId }} · Task #{{ todo.id }}</small>
+            </div>
+            <span class="badge">{{ todo.completed ? 'Done' : 'Open' }}</span>
+          </div>
+        }
+      </div>
+    }
+  </section>
+</main>

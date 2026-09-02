@@ -1,0 +1,23 @@
+<header class="app-header">
+  <div class="brand-block" aria-label="Application brand">
+    <span class="brand-badge">A</span>
+    <div class="brand-copy">
+      <p class="brand-title">Angular App</p>
+      <small>Workspace</small>
+    </div>
+  </div>
+
+  <nav class="main-nav" aria-label="Main navigation">
+    @for (item of navItems; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        {{ item.label }}
+      </a>
+    }
+  </nav>
+
+  <button type="button" class="logout-button" (click)="logout()">Logout</button>
+</header>
