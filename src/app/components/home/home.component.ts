@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { TodoService, type Todo } from '../../services/todo.service';
+import { SearchPipe } from '../../shared/pipes/search-pipe';
 import { HeaderComponent } from '../header/header.component';
+import { Hilighted } from  '../../shared/directives/hilighted'
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, SearchPipe, Hilighted],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -18,6 +20,7 @@ export class HomeComponent {
   user = this.authService.getCurrentUser();
 
   readonly todos = signal<Todo[]>([]);
+  readonly searchQuery = signal('');
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
 
@@ -25,7 +28,11 @@ export class HomeComponent {
   readonly completedTodos = computed(() => this.todos().filter((todo) => todo.completed).length);
   readonly pendingTodos = computed(() => this.todos().filter((todo) => !todo.completed).length);
 
-  constructor() {
+  // todosRxJs: any;
+  // todosRxJsCompleted: any;
+  // todosRxJsPending: any;
+
+  constructor(  private todoService1: TodoService) {
     /*effect start *
     effect(() => {
       const data = this.todos();
@@ -64,4 +71,16 @@ export class HomeComponent {
       },
     });
   }
+
+  /*usin RxJS */
+  // loadTodosRxJs(){
+  //   this.isLoading.set(true);
+  //   this.todoService1.getTodosRxJs().subscribe( (response:any) => {
+  //     console.log('Todos from RxJS:', response);
+  //     this.todosRxJs = response;
+  //     this.todosRxJsCompleted = response.filter((todo:any) => todo.completed).length;
+  //     this.todosRxJsPending = response.filter((todo:any) => !todo.completed).length;
+  //     this.isLoading.set(false);
+  //   })
+  // }
 }

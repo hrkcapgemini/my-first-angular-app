@@ -32,6 +32,36 @@
   font-size: 1.05rem;
 }
 
+.search-field {
+  display: block;
+  max-width: 32rem;
+  margin-top: 1.5rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.search-field span {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.search-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+}
+
+.search-field input:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 2px;
+  border-color: #2563eb;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(140px, 1fr));
