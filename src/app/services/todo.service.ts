@@ -17,7 +17,7 @@ export interface Todo {
 })
 export class TodoService {
 
-  constructor(private http1: HttpClient){}
+  // constructor(private http1: HttpClient){}
 
   /* Using Signal */
   private readonly http = inject(HttpClient);
@@ -27,7 +27,9 @@ export class TodoService {
   }
 
   /* Using RxJS */
-   getTodosRxJs(): Observable<Todo[]> {
-    return this.http1.get<Todo[]>('${environment.apiBaseUrl}${API_ENDPOINTS.TODOS}')
-   }
+  //  getTodosRxJs(): Observable<Todo[]> {
+  //   return this.http1.get<Todo[]>('${environment.apiBaseUrl}${API_ENDPOINTS.TODOS}')
+  //  }
+
+   
 }
