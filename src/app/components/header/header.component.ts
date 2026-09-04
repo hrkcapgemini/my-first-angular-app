@@ -18,7 +18,8 @@ export class HeaderComponent {
     { label: 'Home', path: '/home' },
     { label: 'About', path: '/about' },
     { label: 'Profile', path: '/profile' },
-    { label: 'Settings', path: '/settings' },
+    {label: 'Employee', path: '/employee'},
+    { label: 'Settings', path: '/settings' }
   ];
 
   logout(): void {
