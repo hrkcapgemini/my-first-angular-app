@@ -9,34 +9,34 @@ export const routes: Routes = [
   },
   {
     path: 'signup',
-    loadComponent: () => import('./components/signup/signup.component').then((m) => m.SignupComponent),
+    loadComponent: () => import('./feature/signup/signup.component').then((m) => m.SignupComponent),
   },
   {
     path: 'login',
-    loadComponent: () => import('./components/login/login.component').then((m) => m.LoginComponent),
+    loadComponent: () => import('./feature/login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'home',
-    loadComponent: () => import('./components/home/home.component').then((m) => m.HomeComponent),
+    loadComponent: () => import('./feature/home/home.component').then((m) => m.HomeComponent),
     canActivate: [authGuard],
   },
   {
     path: 'about',
-    loadComponent: () => import('./components/about/about.component').then((m) => m.AboutComponent),
+    loadComponent: () => import('./feature/about/about.component').then((m) => m.AboutComponent),
     canActivate: [authGuard],
   },
   {
     path: 'profile',
-    loadComponent: () => import('./components/profile/profile.component').then((m) => m.ProfileComponent),
+    loadComponent: () => import('./feature/profile/profile.component').then((m) => m.ProfileComponent),
     canActivate: [authGuard],
   },
   {
     path: 'settings',
-    loadComponent: () => import('./components/settings/settings.component').then((m) => m.SettingsComponent),
+    loadComponent: () => import('./feature/settings/settings.component').then((m) => m.SettingsComponent),
     canActivate: [authGuard],
   },
   {
     path: '**',
-    loadComponent: () => import('./components/page-not-found-component/page-not-found-component').then((m) => m.PageNotFoundComponent),
+    loadComponent: () => import('./feature/page-not-found-component/page-not-found-component').then((m) => m.PageNotFoundComponent),
   },
 ];
