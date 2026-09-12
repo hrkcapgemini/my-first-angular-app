@@ -9,11 +9,11 @@ import { SubjectbehaviorsubjectService } from '../../../../services/subjectbehav
               <section class="sibling-card">
               <p>sibling1 works!</p>
       <p class="eyebrow">Sibling 1</p>
-      <p class="helper-text">Send a date to Sibling 2.</p>
+      <p class="helper-text">Send data to Sibling 2.</p>
       <div class="date-row">
         <input id="shared-date" #text />
         <button type="button" (click)="sendSibling2(text.value)" >
-          Send date
+          Send data
         </button>
       </div>
     </section>

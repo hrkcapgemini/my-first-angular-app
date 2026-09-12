@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<main class="employee-page">
+  <header class="page-header">
+    <p class="eyebrow">People operations</p>
+    <h1>Employee directory</h1>
+    <p>Manage employee records stored in this browser.</p>
+  </header>
+  <div class="layout">
+    <app-employee-form [employee]="selectedEmployee()" />
+    <app-employee-list />
+  </div>
+</main>

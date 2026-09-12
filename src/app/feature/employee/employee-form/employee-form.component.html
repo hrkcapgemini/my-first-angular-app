@@ -1,0 +1,70 @@
+<section class="form-panel">
+  <div class="panel-heading">
+    <p class="eyebrow">Employee record</p>
+    <h2>{{ employee ? 'Edit employee' : 'Add employee' }}</h2>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="field-grid">
+      <label>
+        First name <span class="required-mark">*</span>
+        <input formControlName="firstName" />
+        @if (form.controls.firstName.touched && form.controls.firstName.hasError('required')) {
+          <span class="field-error">First name is required.</span>
+        } @else if (form.controls.firstName.touched && form.controls.firstName.hasError('minlength')) {
+          <span class="field-error">First name must be at least 2 characters.</span>
+        }
+      </label>
+      <label>
+        Last name <span class="required-mark">*</span>
+        <input formControlName="lastName" />
+        @if (form.controls.lastName.touched && form.controls.lastName.hasError('required')) {
+          <span class="field-error">Last name is required.</span>
+        } @else if (form.controls.lastName.touched && form.controls.lastName.hasError('minlength')) {
+          <span class="field-error">Last name must be at least 2 characters.</span>
+        }
+      </label>
+      <label>
+        Email <span class="required-mark">*</span>
+        <input type="email" formControlName="email" />
+        @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+          <span class="field-error">Email is required.</span>
+        } @else if (form.controls.email.touched && form.controls.email.hasError('email')) {
+          <span class="field-error">Enter a valid email address.</span>
+        }
+      </label>
+      <label>
+        Department <span class="required-mark">*</span>
+        <input formControlName="department" />
+        @if (form.controls.department.touched && form.controls.department.hasError('required')) {
+          <span class="field-error">Department is required.</span>
+        }
+      </label>
+      <label>
+        Position <span class="required-mark">*</span>
+        <input formControlName="position" />
+        @if (form.controls.position.touched && form.controls.position.hasError('required')) {
+          <span class="field-error">Position is required.</span>
+        }
+      </label>
+      <label>
+        Salary <span class="required-mark">*</span>
+        <input type="number" min="1" formControlName="salary" />
+        @if (form.controls.salary.touched && form.controls.salary.hasError('required')) {
+          <span class="field-error">Salary is required.</span>
+        } @else if (form.controls.salary.touched && form.controls.salary.hasError('min')) {
+          <span class="field-error">Salary must be greater than 0.</span>
+        }
+      </label>
+    </div>
+
+    @if (form.invalid && form.touched) {
+      <p class="form-error">Complete all required fields with valid values.</p>
+    }
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="form.invalid">{{ employee ? 'Update employee' : 'Add employee' }}</button>
+      <button type="button" class="secondary" (click)="resetForm()">Clear</button>
+    </div>
+  </form>
+</section>

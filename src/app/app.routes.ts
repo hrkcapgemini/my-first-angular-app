@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { candeactivateGuard } from './guards/candeactivate-guard';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,13 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () => import('./feature/profile/profile.component').then((m) => m.ProfileComponent),
     canActivate: [authGuard],
+  },
+  {
+    path: 'employee',
+    // The employee page and its feature UI are loaded only when this route is visited.
+    loadComponent: () => import('./feature/employee/employee-page/employee-page.component').then((m) => m.EmployeePageComponent),
+    canActivate: [authGuard],
+    canDeactivate: [candeactivateGuard],
   },
   {
     path: 'settings',

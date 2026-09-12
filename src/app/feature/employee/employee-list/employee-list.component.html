@@ -1,0 +1,31 @@
+<section class="list-panel">
+  <div class="list-heading">
+    <div>
+      <p class="eyebrow">Directory</p>
+      <h2>Employees <span>{{ employees().length }}</span></h2>
+    </div>
+    <button type="button" class="secondary" (click)="refreshEmployees()">Refresh</button>
+  </div>
+
+  @if (loading()) { <p class="status">Saving employee data...</p> }
+  @if (error()) { <p class="status error">{{ error() }}</p> }
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Name</th><th>Department</th><th>Position</th><th>Salary</th><th>Actions</th></tr></thead>
+      <tbody>
+        @for (employee of employees(); track employee.id) {
+          <tr>
+            <td><strong>{{ employee.firstName }} {{ employee.lastName }}</strong><small>{{ employee.email }}</small></td>
+            <td>{{ employee.department }}</td>
+            <td>{{ employee.position }}</td>
+            <td>{{ employee.salary | currency }}</td>
+            <td class="actions"><button type="button" (click)="selectEmployee(employee.id)">Edit</button><button type="button" class="danger" (click)="deleteEmployee(employee.id)">Delete</button></td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="empty">No employees stored yet.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

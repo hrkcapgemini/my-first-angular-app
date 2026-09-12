@@ -19,7 +19,7 @@ export class TodoService {
 
   // constructor(private http1: HttpClient){}
 
-  /* Using Signal */
+  /* Using Inject */
   private readonly http = inject(HttpClient);
 
   getTodos(): Observable<Todo[]> {

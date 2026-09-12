@@ -1,0 +1,16 @@
+:host { display: block; }
+.form-panel { background: #fff; border: 1px solid #d9e1e8; border-radius: 8px; padding: 1.5rem; }
+.eyebrow { color: #177e89; font-size: .75rem; font-weight: 700; letter-spacing: .08em; margin: 0 0 .25rem; text-transform: uppercase; }
+h2 { margin: 0 0 1.25rem; }
+.field-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+label { color: #344054; display: grid; font-size: .875rem; font-weight: 600; gap: .4rem; }
+.required-mark { color: #b42318; }
+input { border: 1px solid #cbd5df; border-radius: 4px; font: inherit; min-width: 0; padding: .65rem .7rem; }
+input:focus { border-color: #177e89; outline: 2px solid #b8e3e5; }
+.field-error { color: #b42318; font-size: .75rem; font-weight: 400; }
+.form-error { color: #b42318; font-size: .875rem; margin: 1rem 0 0; }
+.form-actions { display: flex; gap: .75rem; margin-top: 1.5rem; }
+button { background: #177e89; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font: inherit; font-weight: 700; padding: .7rem 1rem; }
+button:disabled { background: #98a2b3; cursor: not-allowed; }
+button.secondary { background: #edf2f5; color: #344054; }
+@media (max-width: 620px) { .field-grid { grid-template-columns: 1fr; } }
